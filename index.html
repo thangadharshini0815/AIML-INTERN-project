@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mental Health Chatbot</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
+    }
+
+    .overlay {
+      background-color: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(4px);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #f5faff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      text-align: center;
+      color: #a54a85;
+      margin-bottom: 10px;
+    }
+
+    .quote {
+      font-size: 15px;
+      color: #a26d95;
+      margin: 0 0 20px 0;
+      text-align: center;
+      font-style: italic;
+    }
+
+    #chat-box {
+      height: 400px;
+      overflow-y: auto;
+      padding: 15px;
+      border: 1px solid #ead0e3;
+      border-radius: 8px;
+      background-color: #ffffff;
+      margin-bottom: 15px;
+    }
+
+    .message {
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+
+    .user {
+      text-align: right;
+      color: #6d6d6d;
+    }
+
+    .bot {
+      text-align: left;
+      color: #9c3d81;
+    }
+
+    #user-input {
+      width: 75%;
+      padding: 10px;
+      border: 1px solid #e0c5d6;
+      border-radius: 6px;
+      font-size: 14px;
+      background-color: #f0f8ff;
+    }
+
+    #send-btn {
+      padding: 10px 16px;
+      background-color: #d97caa;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-left: 5px;
+    }
+
+    #send-btn:hover {
+      background-color: #cf68b9;
+    }
+
+    .footer-credit {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: 'Segoe UI', sans-serif;
+      letter-spacing: 0.5px;
+      color: #020003;
+      background-color: white;
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+
+<body style="background-image: url('image.jpeg'); background-size: cover; background-repeat: no-repeat; background-position: center; min-height: 100vh;">
+
+  <div class="overlay">
+    <div class="container">
+      <h2>💬 Mental Health Chatbot</h2>
+      <div class="quote" id="quote-display">Loading quote...</div>
+
+      <div id="chat-box"></div>
+
+      <input type="text" id="user-input" placeholder="How are you feeling today?" />
+      <button id="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+
+    <div style="text-align:center;margin-top: 20px;">
+      <div class="footer-credit">
+        <strong>Developed by Thanga Dharshini M</strong>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const quotes = [
+      "“Your feelings are valid.”",
+      "“Healing takes time, and that’s okay.”",
+      "“You are not alone in this.”",
+      "“It's okay to ask for help.”",
+      "“Breathe. You’ve got this.”"
+    ];
+    const quoteElement = document.getElementById('quote-display');
+    quoteElement.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+
+    async function sendMessage() {
+      const userInput = document.getElementById('user-input').value.trim();
+      if (!userInput) return;
+
+      const chatBox = document.getElementById('chat-box');
+      chatBox.innerHTML += `<div class="message user"><strong>You:</strong> ${userInput}</div>`;
+      document.getElementById('user-input').value = "";
+
+      const botResponse = getEmpatheticResponse(userInput);
+      chatBox.innerHTML += `<div class="message bot"><strong>Bot:</strong> ${botResponse}</div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function getEmpatheticResponse(input) {
+      const responses = [
+        "I'm here for you. Tell me more.",
+        "That sounds tough. I'm listening.",
+        "You're not alone in this.",
+        "Take a deep breath. You're doing great.",
+        "I'm proud of you for reaching out.",
+        "Your feelings are completely valid.",
+        "It’s okay to feel this way. You're not alone.",
+        "Do you want to talk more about what’s been bothering you?",
+        "Sometimes talking helps. I'm right here.",
+        "I appreciate you sharing that with me.",
+        "That sounds overwhelming. Want to unpack it together?",
+        "You’ve taken the first step by speaking up. That’s brave.",
+        "Whatever you’re feeling, I’m here to support you.",
+        "This must be really hard for you.",
+        "I’m proud of you for opening up.",
+        "Would you like to take a few deep breaths with me?",
+        "It’s okay to not be okay.",
+        "You don’t have to go through this alone.",
+        "You matter. Your mental health matters.",
+        "How long have you been feeling this way?",
+        "I’m here to listen without any judgment.",
+        "You’ve got this, even if it doesn’t feel like it right now.",
+        "That’s really courageous of you to share.",
+        "Let’s take this one step at a time.",
+        "Your emotions are completely normal.",
+        "Would you like to try a grounding exercise?",
+        "You’ve made it through tough times before. You’re strong.",
+        "You deserve kindness—especially from yourself.",
+        "I believe in your strength.",
+        "Sometimes rest is the most productive thing you can do.",
+        "Thank you for trusting me with this.",
+        "You're allowed to feel what you're feeling.",
+        "Is there something that usually helps you feel better?",
+        "You’re not weak for needing support.",
+        "You are not a burden. You are loved.",
+        "Let’s talk about what’s weighing you down.",
+        "You’re not broken—you’re human.",
+        "Can I help you reframe what you’re going through?",
+        "Would it help if I just listened?",
+        "We can get through this together.",
+        "You’ve already survived 100% of your hardest days.",
+        "Your thoughts don’t define you.",
+        "You have more strength than you know.",
+        "I care about how you’re feeling.",
+        "It’s okay to cry. It’s a release, not a weakness.",
+        "Do you want to talk or just sit in silence together?",
+        "Let’s take it slow. There’s no rush.",
+        "You’re doing the best you can—and that’s enough.",
+        "Every emotion you feel is trying to tell you something.",
+        "Healing isn’t linear—and that’s okay.",
+        "Let’s focus on one small step forward.",
+        "No one expects you to have all the answers.",
+        "You’re not alone in feeling this way.",
+        "I’m not going anywhere. Take your time.",
+        "Would journaling your thoughts help?",
+        "Even the smallest progress is still progress.",
+        "What’s been the hardest part for you lately?",
+        "You’re allowed to set boundaries and say no.",
+        "What’s something you used to enjoy?",
+        "It’s okay if you don’t have the words yet.",
+        "I admire your honesty and bravery.",
+        "Let’s breathe together for a moment.",
+        "Your mind deserves peace.",
+        "What’s something you’re grateful for right now?",
+        "You're not alone, even if it feels that way.",
+        "You’ve come so far. Be proud of that.",
+        "Let’s break this down together.",
+        "You’re worth fighting for.",
+        "Your mental health is just as important as your physical health.",
+        "Can you describe how you’re feeling in one word?",
+        "You are enough. Just as you are.",
+        "Pain is real, and so is healing.",
+        "It’s okay if today was hard.",
+        "You don’t have to carry everything by yourself.",
+        "Let’s get through today together.",
+        "I’m really sorry you’re going through this.",
+        "You’re important to this world.",
+        "You are doing better than you think.",
+        "Let me know how I can support you.",
+        "It’s okay if all you did today was survive.",
+        "Let’s find something that helps you feel calm.",
+        "You are not defined by your struggles.",
+        "You’ve shown so much courage already.",
+        "Would it help to talk about what triggered this feeling?",
+        "Let’s be gentle with ourselves today.",
+        "Your vulnerability is powerful.",
+        "How are you feeling in your body right now?",
+        "Let’s create a safe space here together.",
+        "The way you feel is not permanent.",
+        "It’s okay to take breaks from everything.",
+        "One small positive thought can change your day.",
+        "You’re doing your best, and that is enough.",
+        "Let’s sit with this feeling, not run from it.",
+        "What can we do right now to ease your stress?",
+        "Your story matters.",
+        "You don’t have to explain everything right now.",
+        "You’re not alone, and you never have to be.",
+        "I hear you, and I care about what you’re saying.",
+        "You're not a failure. You’re a fighter.",
+        "This is just one chapter—not your whole story.",
+        "Every feeling is welcome here.",
+        "You are worthy of love and understanding.",
+        "What kind of support would feel best for you right now?"
+      ];
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
+  </script>
+</body>
+</html>
